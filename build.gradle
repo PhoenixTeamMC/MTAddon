@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+repositories {
+	maven {
+		name = "chickenbones"
+		url = "http://chickenbones.net/maven/"
+	}
+	maven {
+		name "Mobius Repo"
+		url "http://mobiusstrip.eu/maven"
+	}
+}
+
+apply plugin: 'forge'
+apply plugin: 'java'
+apply plugin: 'sonar-runner'
+
+ext.config = parseConfig(file('build.properties'))
+ext.modVersion = "${config.version.mod.major}.${config.version.mod.minor}.${config.version.mod.revis}"
+version = "${config.version.minecraft}-${modVersion}"
+group = "com.Phoenix.MT-Addon" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "MT-Addon"
+
+minecraft {
+    version = "1.7.10-10.13.2.1291"
+    runDir = "eclipse"
+}
+
+dependencies {
+    // http://files.minecraftforge.net/CodeChickenLib/
+	compile "codechicken:CodeChickenLib:1.7.10-1.1.1.104:dev"
+	
+	// http://chickenbones.net/maven
+	compile "codechicken:CodeChickenCore:1.7.10-1.0.3.26:dev"
+	compile "codechicken:NotEnoughItems:1.7.10-1.0.3.67:dev"
+	
+	// http://mobiusstrip.eu/maven
+	compile "mcp.mobius.waila:Waila:1.5.9_1.7.10:dev"
+}
+
+processResources
+{    
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+	
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+		expand ([
+			'version': project.modVersion,
+			'mcversion': project.minecraft.version])
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+def parseConfig(File config) {
+	config.withReader {
+		def prop = new Properties()
+		prop.load(it)
+		return (new ConfigSlurper().parse(prop))
+	}
+}

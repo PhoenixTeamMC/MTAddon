@@ -1,0 +1,21 @@
+[
+{
+"modid": "mt_addon",
+"name": "MT-Addon",
+"description": "A Phoenix Team addon for MineTweaker",
+"version": "${version}",
+"mcversion": "${mcversion}",
+"url": "",
+"updateUrl": "",
+"authorList": [
+"The Phoenix Team"
+],
+"credits": "InfinityRaider",
+"logoFile": "",
+"screenshots": [
+],
+"parent":"",
+"dependencies": [
+]
+}
+]
