@@ -13,7 +13,7 @@ public class MT_Addon {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         MineTweakerAPI.registerClass(MiningLevel.class);
-        //MineTweakerAPI.registerClass(OreDict.class);
+        MineTweakerAPI.registerClass(OreDict.class);
         MineTweakerAPI.registerClass(StackSize.class);
         MineTweakerAPI.registerClass(Difficulty.class);
     }
