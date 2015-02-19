@@ -163,3 +163,4 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
+eclipse/
