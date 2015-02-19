@@ -22,6 +22,65 @@ public class OreDict {
         MineTweakerAPI.apply(new RemoveAllEntries(s));
     }
 
+    @ZenMethod
+    public static void MergeOredict(String s1, String s2){
+        if (OreDictionary.getOres(s1).size() > 0 && OreDictionary.getOres(s2).size() > 0)
+            MineTweakerAPI.apply(new mergeOreEntries(s1, s2));
+        else
+            MineTweakerAPI.logError("Invalid merge: "+s1+" & "+s2);
+    }
+
+    private static class mergeOreEntries implements IUndoableAction{
+
+        String name1;
+        String name2;
+        ArrayList<ItemStack> first;
+        ArrayList<ItemStack> second;
+
+        public mergeOreEntries(String one, String two){
+            this.name1 = one;
+            this.name2 = two;
+        }
+
+
+        @Override
+        public void apply() {
+            this.first = OreDictionary.getOres(name1);   //local vars in case it will become possible to unregister stuff
+            this.second = OreDictionary.getOres(name2);  //local vars in case it will become possible to unregister stuff
+            for (ItemStack itemStack : first){
+                OreDictionary.registerOre(name2, itemStack);
+            }
+            for (ItemStack itemStack : second){
+                OreDictionary.registerOre(name1, itemStack);
+            }
+        }
+
+        @Override
+        public boolean canUndo() {
+            return false;
+        }
+
+        @Override
+        public void undo() {
+            //Cannot undo, MC restart is needed
+        }
+
+        @Override
+        public String describe() {
+            return "Merging oredict entries for "+name1+" and "+name2;
+        }
+
+        @Override
+        public String describeUndo() {
+            return "Impossible";
+        }
+
+        @Override
+        public Object getOverrideKey() {
+            return null;
+        }
+    }
+
     private static class RemoveAllEntries implements IUndoableAction {
         private String name;
 
