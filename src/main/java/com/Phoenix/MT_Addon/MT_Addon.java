@@ -15,5 +15,6 @@ public class MT_Addon {
         MineTweakerAPI.registerClass(MiningLevel.class);
         //MineTweakerAPI.registerClass(OreDict.class);
         MineTweakerAPI.registerClass(StackSize.class);
+        MineTweakerAPI.registerClass(Difficulty.class);
     }
 }
