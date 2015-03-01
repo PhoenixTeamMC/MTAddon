@@ -1,4 +1,4 @@
-package com.Phoenix.MT_Addon.handlers;
+package phoenix.mt_addon.handlers;
 
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
