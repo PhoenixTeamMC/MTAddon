@@ -16,6 +16,7 @@ public class DifficultyForcer {
 
     @SubscribeEvent
     public void ForceDifficulty(TickEvent.WorldTickEvent event) {
-        event.world.difficultySetting = difficulty;
+        if (event.side.isServer())
+            event.world.difficultySetting = difficulty;
     }
 }
