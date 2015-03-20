@@ -3,7 +3,7 @@ package phoenix.mt_addon.eventhandlers;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import phoenix.mt_addon.handlers.OreDict;
+import phoenix.mt_addon.handlers.oredict.OreDict;
 
 import java.util.ArrayList;
 

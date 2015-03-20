@@ -15,7 +15,7 @@ public class DifficultyForcer {
     EnumDifficulty difficulty;
 
     @SubscribeEvent
-    public void ForceDifficulty(TickEvent.WorldTickEvent event) {
+    public void forceDifficulty(TickEvent.WorldTickEvent event) {
         if (event.side.isServer())
             event.world.difficultySetting = difficulty;
     }
