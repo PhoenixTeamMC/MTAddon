@@ -1,4 +1,4 @@
-package phoenix.mt_addon.handlers;
+package phoenix.mt_addon.handlers.difficulty;
 
 /**
  * Created by Elec332 on 19-2-2015.
@@ -19,10 +19,10 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenClass("phoenixTweaks.Difficulty")
 public class Difficulty {
 
-    static MinecraftServer theServer = MinecraftServer.getServer();
+    public static MinecraftServer theServer = MinecraftServer.getServer();
 
     @ZenMethod
-    public static void ForceDifficulty(String type){
+    public static void forceDifficulty(String type){
         EnumDifficulty difficulty = getDifficulty(type);
         if (difficulty != null)
             MineTweakerAPI.apply(new ForceDifficulty(difficulty));
@@ -39,51 +39,6 @@ public class Difficulty {
            return EnumDifficulty.HARD;
         MineTweakerAPI.logError("\""+s+"\""+" is not an valid difficulty" );
         return null;
-    }
-
-    private static class ForceDifficulty implements IUndoableAction {
-        public ForceDifficulty(EnumDifficulty difficulty){
-            this.newType = difficulty;
-            this.oldType = theServer.func_147135_j();
-            this.DiffForcerInstance = new DifficultyForcer(newType);
-        }
-
-        protected EnumDifficulty oldType;
-        protected EnumDifficulty newType;
-        private DifficultyForcer DiffForcerInstance;
-
-        @Override
-        public void apply() {
-            FMLCommonHandler.instance().bus().register(DiffForcerInstance);
-        }
-
-        @Override
-        public boolean canUndo() {
-            return true;
-        }
-
-        @Override
-        public void undo() {
-            FMLCommonHandler.instance().bus().unregister(DiffForcerInstance);
-            if (theServer.isServerRunning())
-                for(World world: theServer.worldServers)
-                    world.difficultySetting = oldType;
-        }
-
-        @Override
-        public String describe() {
-            return "Setting the difficulty from " + this.oldType.getDifficultyResourceKey() + " to " + this.newType.getDifficultyResourceKey();
-        }
-
-        @Override
-        public String describeUndo() {
-            return "Resetting the difficulty from " + this.newType.getDifficultyResourceKey() + " to " + this.oldType.getDifficultyResourceKey();
-        }
-
-        @Override
-        public Object getOverrideKey() {
-            return null;
-        }
     }
 
 

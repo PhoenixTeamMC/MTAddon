@@ -3,10 +3,10 @@ package phoenix.mt_addon;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import minetweaker.MineTweakerAPI;
-import phoenix.mt_addon.handlers.Difficulty;
-import phoenix.mt_addon.handlers.MiningLevel;
-import phoenix.mt_addon.handlers.OreDict;
-import phoenix.mt_addon.handlers.StackSize;
+import phoenix.mt_addon.handlers.difficulty.Difficulty;
+import phoenix.mt_addon.handlers.mininglevel.MiningLevel;
+import phoenix.mt_addon.handlers.oredict.OreDict;
+import phoenix.mt_addon.handlers.stacksize.StackSize;
 
 @Mod(modid = MT_Addon.MOD_ID, name = MT_Addon.MOD_NAME, dependencies = "required-after:MineTweaker3") //;required-after:ModTweaker") I dont think thats nesseceary
 public class MT_Addon {
